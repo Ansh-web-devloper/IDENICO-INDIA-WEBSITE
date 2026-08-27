@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDENICO | Powerful Tools. Perfect Spaces.</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        idenico: {
+                            blue: '#1e3a8a', // Deep blue
+                            light: '#2563eb', // Standard blue
+                            cyan: '#06b6d4'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth fade transitions for the image slider */
+        .carousel-img {
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* Continuous scrolling marquee for logos */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: 200%;
+            animation: marquee 35s linear infinite;
+        }
+        .animate-marquee img {
+            width: 50%;
+            object-fit: contain;
+        }
+
+        /* Smooth on-scroll reveal animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Logo Slider Classes */
+        .logo-slide {
+            width: 120px;
+            flex-shrink: 0;
+            margin: 0 15px;
+        }
+        @media (min-width: 768px) {
+            .logo-slide { width: 180px; margin: 0 30px; }
+        }
+    </style>
+</head>
+<body class="font-sans text-slate-800 bg-white antialiased overflow-x-hidden">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-white shadow-sm z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="goHome()">
+                    <a class="flex items-center">
+                        <img src="https://idenicoproductimages.edgeone.dev/Idenico%20logo.png" alt="IDENICO Logo" class="h-12 md:h-16 w-auto object-contain">
+                    </a>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="#about-us" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors">About Us</a>
+                    <a href="#products-section" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors">Products</a>
+                    <a href="#industries" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors">Industries</a>
+                    <a href="#why-idenico" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors">Why IDENICO</a>
+                    <a href="#support" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors">Support</a>
+                    <a href="#contact-us" class="nav-link text-sm font-medium text-slate-700 hover:text-blue-600 transition-colors">Contact Us</a>
+                    <a href="#contact-us" class="nav-link bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded text-sm font-semibold transition-colors shadow-md hover:shadow-lg">
+                        Request a Quote
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-slate-700 hover:text-blue-600 focus:outline-none">
+                        <i class="fas fa-bars text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 pt-2 pb-4 space-y-1 shadow-lg absolute w-full left-0">
+            <a href="#home" class="mobile-link nav-link block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Home</a>
+            <a href="#about-us" class="mobile-link nav-link block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">About Us</a>
+            <a href="#products-section" class="mobile-link nav-link block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Products</a>
+            <a href="#industries" class="mobile-link nav-link block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Industries</a>
+            <a href="#why-idenico" class="mobile-link nav-link block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Why IDENICO</a>
+            <a href="#support" class="mobile-link nav-link block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Support</a>
+            <a href="#contact-us" class="mobile-link nav-link block px-3 py-2 text-base font-medium text-slate-700 hover:text-blue-600 hover:bg-blue-50 rounded-md">Contact Us</a>
+            <a href="#contact-us" class="mobile-link nav-link block w-full text-left px-3 py-2 text-base font-semibold text-blue-600 hover:bg-blue-50 rounded-md">
+                Request a Quote
+            </a>
+        </div>
+    </nav>
+
+    <!-- ================= HOME VIEW (MAIN PAGE) ================= -->
+    <div id="home-view" class="block">
+        <!-- Hero Section -->
+        <section id="home" class="relative pt-20 bg-slate-900 text-white min-h-[90vh] flex items-center reveal">
+            <div class="absolute inset-0 z-0 opacity-40">
+                <img src="https://idenicoimage.edgeone.dev/Hero%20section.png" alt="Industrial Facility" class="w-full h-full object-cover">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent z-0"></div>
+            
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full py-20">
+                <div class="max-w-2xl">
+                    <div class="inline-block px-3 py-1 bg-blue-600/20 border border-blue-500/30 text-blue-300 font-semibold rounded-full text-xs tracking-wider mb-6">
+                        Smart Solutions, Powerful Performance
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight">
+                        Powerful Tools<br/>
+                        <span class="text-blue-500">Perfect Spaces</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed">
+                        Professional Cleaning & Hygiene Solutions, Horticulture Machines, and Water Treatment. We provide reliable, efficient, and value-driven products designed to improve cleanliness, productivity, and maintenance standards across every environment.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#products-section" class="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded font-semibold text-lg transition-colors flex items-center justify-center gap-2 shadow-lg">
+                            Explore Our Products <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="#contact-us" class="bg-white hover:bg-gray-100 text-slate-900 px-8 py-4 rounded font-semibold text-lg transition-colors flex items-center justify-center shadow-lg">
+                            Request a Quote
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="relative z-20 -mt-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-xl shadow-xl p-8 border border-slate-100 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="bg-blue-50 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-cogs text-3xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Powerful Performance</h3>
+                    <p class="text-slate-600 leading-relaxed">Professional equipment designed to deliver effective cleaning across demanding environments.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-xl p-8 border border-slate-100 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="bg-blue-50 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-shield-alt text-3xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Durable Construction</h3>
+                    <p class="text-slate-600 leading-relaxed">Machines designed for practical, long-term use across commercial and industrial applications.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-xl p-8 border border-slate-100 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="bg-blue-50 w-16 h-16 rounded-lg flex items-center justify-center mb-6">
+                        <i class="fas fa-thumbs-up text-3xl text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-3">Easy Operation</h3>
+                    <p class="text-slate-600 leading-relaxed">User-focused equipment designed to make professional cleaning more convenient and efficient.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about-us" class="py-24 bg-white reveal">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-4xl md:text-5xl font-bold text-slate-900 mb-8 leading-tight">About Us</h2>
+                <p class="text-lg md:text-xl text-slate-600 mb-12 leading-relaxed">
+                    We are committed to providing reliable, and Value-driven products that help our customers improve cleanliness, hygiene, productivity, operational efficiency, and maintenance standards. Our product portfolio is designed to serve a wide range of customers across corporates, educational institutions, hospitals, hotels, industries, government organizations, commercial establishments, and residential communities.
+                </p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-left">
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                            <i class="fas fa-eye text-blue-500 text-2xl"></i> Our Vision
+                        </h4>
+                        <p class="text-slate-600 leading-relaxed">To contribute to cleaner and better-maintained environments through reliable equipment, practical technology, and professional customer support.</p>
+                    </div>
+                    <div class="bg-slate-50 rounded-2xl p-8 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="text-xl font-bold text-slate-900 mb-4 flex items-center gap-3">
+                            <i class="fas fa-bullseye text-blue-500 text-2xl"></i> Our Mission
+                        </h4>
+                        <p class="text-slate-600 leading-relaxed">Delivering practical cleaning solutions combining performance, reliability, and ease of operation tailored to specific industry needs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Product Categories Section -->
+        <section id="products-section" class="py-24 bg-slate-50 border-t border-slate-200 reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <div class="text-blue-600 font-semibold tracking-wider text-sm uppercase mb-3">Professional Product Lineup</div>
+                    <h2 class="text-4xl font-bold text-slate-900 mb-6">Machines Built for Real-World Cleaning</h2>
+                    <p class="text-lg text-slate-600">
+                        From compact cordless vacuums to industrial-scale road sweepers, IDENICO offers equipment for every level of cleaning requirement.
+                    </p>
+                </div>
+
+                <!-- Product Categories Container (Injected via JS) -->
+                <div id="home-categories-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cards will be generated here -->
+                </div>
+                
+                <div class="mt-12 text-center">
+                    <a href="https://worthy-red-34ccvuou.edgeone.dev/" target="_blank" class="inline-block bg-slate-900 hover:bg-slate-800 text-white px-8 py-3 rounded text-sm font-semibold transition-colors shadow-lg">
+                        View Complete Catalogue
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Customers Section -->
+        <section id="our-customers" class="py-16 bg-white border-t border-slate-200 reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Our Customers</h2>
+            </div>
+            <!-- Slider Animation (1 by 1) -->
+            <div class="w-full max-w-4xl mx-auto overflow-hidden bg-white py-4 relative h-48 md:h-72">
+                <div id="customer-slider" class="flex items-center h-full w-full">
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C-%20Logo%201.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%202.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%203.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%204.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%205.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%206.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%207.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%208.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%209.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%2010.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%2011.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20Logo%2012.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%2013.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%2014.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%2015.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%2017.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                    <div class="w-full h-full flex-shrink-0 flex items-center justify-center px-4">
+                        <img src="https://idenicobrandlogoandimage.edgeone.dev/C%20logo%2018.png" alt="Customer Logo" class="h-32 md:h-56 object-contain">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Industries Section -->
+        <section id="industries" class="py-20 bg-slate-900 text-white reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Industries We Serve</h2>
+                    <p class="text-blue-200">Solutions Designed for Different Environments</p>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-12 gap-x-6 justify-center">
+                    <!-- Grid items -->
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-industry text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Manufacturing</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-warehouse text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Warehouses</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-hospital text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Healthcare</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-hotel text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Hospitality</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-shopping-cart text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Retail & Malls</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-plane text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Airports</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-graduation-cap text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Education</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-hard-hat text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Construction</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-tree text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Landscaping</span>
+                    </div>
+                    <div class="flex flex-col items-center text-center group cursor-pointer">
+                        <div class="w-20 h-20 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center mb-4 group-hover:bg-blue-600 group-hover:border-blue-500 transition-colors duration-300">
+                            <i class="fas fa-city text-3xl"></i>
+                        </div>
+                        <span class="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">Commercial</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Choose Us -->
+        <section id="why-idenico" class="py-24 bg-slate-50 border-t border-slate-200 reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                    <div class="lg:col-span-2">
+                        <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-10">Why Choose IDENICO?</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex gap-4">
+                                <div class="mt-1"><i class="fas fa-shield-alt text-2xl text-blue-600"></i></div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-slate-900 mb-2">Superior Quality</h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed">Our product portfolio is focused on reliable equipment designed for professional cleaning and maintenance applications.</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex gap-4">
+                                <div class="mt-1"><i class="fas fa-tachometer-alt text-2xl text-blue-600"></i></div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-slate-900 mb-2">Performance-Focused</h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed">From powerful industrial vacuuming to large-area sweeping, IDENICO equipment is designed around practical performance.</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex gap-4">
+                                <div class="mt-1"><i class="fas fa-wallet text-2xl text-blue-600"></i></div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-slate-900 mb-2">Budget-Oriented</h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed">We recommend highly suitable solutions based exactly on your budget, application, and long-term value.</p>
+                                </div>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex gap-4">
+                                <div class="mt-1"><i class="fas fa-cubes text-2xl text-blue-600"></i></div>
+                                <div>
+                                    <h4 class="text-lg font-bold text-slate-900 mb-2">Wide Product Range</h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed">A comprehensive range of machines enables customers to find solutions across different cleaning requirements.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100 h-full flex flex-col">
+                            <div class="bg-blue-900 px-8 py-6">
+                                <h3 class="text-xl font-bold text-white">Our Leadership</h3>
+                            </div>
+                            <div class="p-8 flex-grow flex flex-col gap-6">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900">Sandeep Anand</h3>
+                                    <p class="text-blue-600 text-sm font-semibold mb-2">Director, IDENICO India</p>
+                                    <a href="https://wa.me/919990385139?text=Hi%2C%20I%20visited%20your%20website%20Idenicoindia.com.%20I%20am%20interested%20in%20your%20products" target="_blank" class="flex items-center gap-3 text-sm text-slate-700 hover:text-green-600 transition-colors">
+                                        <i class="fab fa-whatsapp text-green-500 text-lg"></i> +91 99903 85139
+                                    </a>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900">Amresh Bahadur Singh</h3>
+                                    <p class="text-blue-600 text-sm font-semibold mb-2">Director, IDENICO India</p>
+                                    <a href="https://wa.me/917520644876?text=Hi%2C%20I%20visited%20your%20website%20Idenicoindia.com.%20I%20am%20interested%20in%20your%20products" target="_blank" class="flex items-center gap-3 text-sm text-slate-700 hover:text-green-600 transition-colors">
+                                        <i class="fab fa-whatsapp text-green-500 text-lg"></i> +91 75206 44876
+                                    </a>
+                                </div>
+                                <div class="mt-auto pt-6 border-t border-slate-100">
+                                    <p class="text-slate-600 text-sm mb-4 leading-relaxed italic">
+                                        "We focus on understanding customer requirements and connecting businesses with practical, professional equipment solutions built on reliability and trust."
+                                    </p>
+                                    <a href="mailto:sales@idenicoindia.com" class="flex items-center gap-3 text-sm text-slate-700 hover:text-blue-600">
+                                        <i class="fas fa-envelope text-blue-500"></i> sales@idenicoindia.com
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Support Section -->
+        <section id="support" class="py-24 bg-white reveal">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">More Than Machines. Complete Support.</h2>
+                <p class="text-lg text-slate-600 mb-16 max-w-2xl mx-auto">Choosing the right machine is only the beginning. We offer end-to-end guidance to ensure you get the best results.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl mx-auto">
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
+                            <i class="fas fa-comments text-3xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-3">Product Consultation</h4>
+                        <p class="text-slate-600 leading-relaxed text-sm">Our team helps identify suitable product categories based on your specific environment and cleaning requirements.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
+                            <i class="fas fa-route text-3xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-3">Application Guidance</h4>
+                        <p class="text-slate-600 leading-relaxed text-sm">Understand suitable solutions for floor cleaning, dust removal, wet cleaning, pressure washing, and water purification.</p>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mb-6">
+                            <i class="fas fa-tools text-3xl"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-slate-900 mb-3">Equipment Support</h4>
+                        <p class="text-slate-600 leading-relaxed text-sm">Get ongoing assistance related to product information, maintenance requirements, and equipment selection.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ================= DYNAMIC PRODUCT DETAILS VIEW ================= -->
+    <div id="category-view" class="hidden min-h-screen bg-slate-50 pt-28 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Category View Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+                <div>
+                    <button onclick="goHome()" class="text-blue-600 font-semibold text-sm hover:text-blue-800 mb-4 inline-flex items-center gap-2 transition-colors">
+                        <i class="fas fa-arrow-left"></i> Back to Categories
+                    </button>
+                    <h1 id="cv-title" class="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Category Name</h1>
+                    <p id="cv-desc" class="text-lg text-slate-600 mt-2 max-w-2xl">Category description goes here.</p>
+                </div>
+                
+                <!-- Search Bar -->
+                <div class="w-full md:w-96 relative">
+                    <input type="text" id="product-search" class="w-full pl-12 pr-4 py-3 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm transition-all" placeholder="Search products...">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400"></i>
+                </div>
+            </div>
+
+            <!-- Products Grid Container -->
+            <div id="products-grid" class="grid grid-cols-1 gap-12">
+                <!-- Product items injected by JS -->
+            </div>
+            
+            <!-- No Results State -->
+            <div id="no-results" class="hidden text-center py-20">
+                <i class="fas fa-search text-4xl text-slate-300 mb-4"></i>
+                <h3 class="text-xl font-bold text-slate-700">No products found</h3>
+                <p class="text-slate-500">Try adjusting your search terms.</p>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- ================= SHARED CONTACT & FOOTER ================= -->
+    <section id="contact-us" class="py-24 bg-blue-900 text-white relative overflow-hidden reveal">
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20">
+            <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-blue-500 blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full bg-cyan-500 blur-3xl"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Ready to Upgrade Your Cleaning?</h2>
+                <p class="text-blue-200 text-lg">Tell us what you need to clean, where you operate, and our team will recommend the perfect industrial solution.</p>
+            </div>
+
+            <div class="max-w-3xl mx-auto bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-slate-800">
+                <form id="contact-form" class="space-y-6" onsubmit="event.preventDefault(); alert('Thank you for contacting IDENICO. Our team will review your enquiry and get in touch with you shortly.');">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="fullName">Full Name</label>
+                            <input type="text" id="fullName" required class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="companyName">Company Name</label>
+                            <input type="text" id="companyName" class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors" placeholder="Company Ltd.">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="email">Email Address</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors" placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="phone">Phone Number</label>
+                            <input type="tel" id="phone" required class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors" placeholder="+91 00000 00000">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2" for="productCategoryForm">Product Category Interest</label>
+                        <select id="productCategoryForm" class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors">
+                            <option value="">Select a category...</option>
+                            <option value="vacuum">Vacuum Cleaners</option>
+                            <option value="scrubber">Floor Cleaning Machines</option>
+                            <option value="sweepers">Sweepers</option>
+                            <option value="pressure">Pressure Washers</option>
+                            <option value="lawn">Lawn-Care Equipment</option>
+                            <option value="water">Water Purification</option>
+                            <option value="other">Not Sure / Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold text-slate-700 mb-2" for="message">Application / Requirement</label>
+                        <textarea id="message" rows="4" required class="w-full px-4 py-3 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-colors" placeholder="Tell us about your cleaning environment..."></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-lg text-lg transition-colors shadow-lg hover:shadow-xl">
+                        Submit Enquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-400 py-16 border-t border-slate-900 reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2 lg:col-span-1">
+                    <img src="https://idenicoproductimages.edgeone.dev/Idenico%20logo.png" alt="IDENICO Logo" class="h-20 md:h-28 w-auto object-contain mb-6">
+                    <p class="text-sm mb-6 leading-relaxed">
+                        Powerful Tools. Perfect Spaces. <br/>
+                        Professional Cleaning & Industrial Solutions for Every Environment.
+                    </p>
+                    <p class="text-sm text-slate-500">Clean Today. Brighter Tomorrow.</p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#home" class="nav-link hover:text-blue-400 transition-colors">Home</a></li>
+                        <li><a href="#about-us" class="nav-link hover:text-blue-400 transition-colors">About Us</a></li>
+                        <li><a href="#products-section" class="nav-link hover:text-blue-400 transition-colors">Products</a></li>
+                        <li><a href="#industries" class="nav-link hover:text-blue-400 transition-colors">Industries</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Products</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="javascript:void(0)" onclick="openCategory('vacuum')" class="hover:text-blue-400 transition-colors">Vacuum Cleaners</a></li>
+                        <li><a href="javascript:void(0)" onclick="openCategory('floor')" class="hover:text-blue-400 transition-colors">Floor Cleaning</a></li>
+                        <li><a href="javascript:void(0)" onclick="openCategory('sweepers')" class="hover:text-blue-400 transition-colors">Sweepers</a></li>
+                        <li><a href="javascript:void(0)" onclick="openCategory('pressure')" class="hover:text-blue-400 transition-colors">Pressure Washers</a></li>
+                        <li><a href="javascript:void(0)" onclick="openCategory('water')" class="hover:text-blue-400 transition-colors">Water Purification</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Contact Us</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt text-blue-500 mt-1 flex-shrink-0"></i>
+                            <span>1550, 15th Floor, Gaur City Mall Office Space, Greater Noida West, Uttar Pradesh - 201318</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-phone text-blue-500 mt-1 flex-shrink-0"></i>
+                            <div class="flex flex-col gap-2">
+                                <a href="tel:+919990385139" class="hover:text-blue-400">Sandeep Anand: <br/> +91 99903 85139</a>
+                                <a href="tel:+917520644876" class="hover:text-blue-400">Amresh Bahadur Singh: <br/> +91 75206 44876</a>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope text-blue-500 flex-shrink-0"></i>
+                            <a href="mailto:sales@idenicoindia.com" class="hover:text-blue-400">sales@idenicoindia.com</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 text-sm text-center md:text-left flex flex-col md:flex-row justify-between items-center gap-4">
+                <p id="copyright-year"></p>
+                <p>Powering a Cleaner Future.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Data & Logic -->
+    <script>
+        // ------------------ DATA ------------------ //
+        // No prod.image means NO left column. Images are injected directly into specsHtml for huge visibility.
+        const productDatabase = {
+            vacuum: {
+                id: 'vacuum',
+                title: "Vacuum Cleaners",
+                desc: "Industrial wet & dry, 3-phase, and cordless vacuum solutions for demanding environments.",
+                images: [
+                    "https://idenicoproductimages.edgeone.dev/WD%2015%20&%2030%20Industrial%20wet%20&%20Dry%20vaccum%20cleaner.png",
+                    "https://idenicoproductimages.edgeone.dev/3%20phase%20industrial%20vaccum%20cleaner.png",
+                    "https://idenicoproductimages.edgeone.dev/Cordless%20Backpack%20Vacuum%20Cleaner.png"
+                ],
+                products: [
+                    {
+                        name: "Industrial Wet & Dry Vacuum Cleaners",
+                        image: "", 
+                        description: "IDENICO Industrial Wet & Dry Vacuum Cleaners are designed for demanding cleaning environments, offering powerful suction, robust stainless-steel construction and versatile wet and dry cleaning capability.",
+                        specsHtml: `
+                            <div class="mb-4">
+                                <h5 class="text-sm font-bold text-slate-800 border-b pb-2 mb-2">Common Features</h5>
+                                <p class="text-sm text-slate-600">Powerful suction • Wet & dry cleaning • Stainless-steel construction • Durable design • Multipurpose accessories • Industrial and commercial applications</p>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicobrandlogoandimage.edgeone.dev/WD%2015%20&%2030%20Industrial%20wet%20&%20Dry%20vaccum%20cleaner.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">WD 15</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Power:</b> 220–240V / 50Hz</li><li><b>Motor:</b> 1000 W (1 Motor)</li><li><b>Air Flow:</b> 48 L/s</li><li><b>Suction Lift:</b> 1800 mm</li><li><b>Capacity:</b> 15 L</li><li><b>Weight:</b> 13.5 kg</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicobrandlogoandimage.edgeone.dev/WD%2015%20&%2030%20Industrial%20wet%20&%20Dry%20vaccum%20cleaner.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">WD 30</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Power:</b> 220–240V / 50Hz</li><li><b>Motor:</b> 1000 W (1 Motor)</li><li><b>Air Flow:</b> 53 L/s</li><li><b>Suction Lift:</b> 2000 mm</li><li><b>Capacity:</b> 30 L</li><li><b>Weight:</b> 14 kg</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicobrandlogoandimage.edgeone.dev/WD%2060%20-%202%20&%20WD%2080-3%20industrial%20wet%20and%20dry.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">WD 60-2</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Power:</b> 220–240V / 50Hz</li><li><b>Motor:</b> 2000 W (2 Motors)</li><li><b>Air Flow:</b> 106 L/s</li><li><b>Suction Lift:</b> 2200 mm</li><li><b>Capacity:</b> 60 L</li><li><b>Weight:</b> 28 kg</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicobrandlogoandimage.edgeone.dev/WD%2060%20-%202%20&%20WD%2080-3%20industrial%20wet%20and%20dry.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">WD 80-3</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Power:</b> 220–240V / 50Hz</li><li><b>Motor:</b> 2000 W (3 Motors)</li><li><b>Air Flow:</b> 160 L/s</li><li><b>Suction Lift:</b> 2600 mm</li><li><b>Capacity:</b> 80 L</li><li><b>Weight:</b> 28 kg</li></ul>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "IVC95/5 — 3-Phase Industrial Vacuum Cleaner",
+                        image: "",
+                        description: "High suction power industrial vacuum with large capacity stainless-steel waste container. Suitable for dust, liquids and solids simultaneously. Ideal for industrial cleaning, workshop cleaning and facility maintenance.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/3%20phase%20industrial%20vaccum%20cleaner.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm mt-4 bg-white border rounded-lg p-6 shadow-sm">
+                                <ul class="text-slate-600 space-y-1"><li><b>Voltage:</b> 415 V</li><li><b>Motor:</b> 5 HP / 3.68 kW</li><li><b>Filtration Area:</b> 3 m²</li><li><b>HEPA Filter:</b> 99.97%</li><li><b>RPM:</b> 2800</li></ul>
+                                <ul class="text-slate-600 space-y-1"><li><b>Turbine Type:</b> RSG</li><li><b>Type of Filter:</b> Polyester</li><li><b>Container Tank:</b> Stainless Steel</li><li><b>Noise Level:</b> 75 dB</li><li><b>Suction Power:</b> 310 mbar</li></ul>
+                                <ul class="text-slate-600 space-y-1"><li><b>Air Flow:</b> 150 LPS</li><li><b>Protection:</b> IP54</li><li><b>Capacity:</b> 100 Litres</li><li><b>Filter Shaker:</b> Manual</li><li><b>Weight:</b> 135 kg</li></ul>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "Cordless Vacuum Cleaners",
+                        image: "", 
+                        description: "Ultimate mobility with cordless power. Includes backpack and stick models for versatile, cord-free cleaning anywhere.",
+                        specsHtml: `
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicoproductimages.edgeone.dev/Cordless%20Backpack%20Vacuum%20Cleaner.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">DVC 660 — Backpack</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Dust Bag Capacity:</b> 6.0 L (Cloth: 5.5 L)</li><li><b>Continuous Use Time:</b> 40 min</li><li><b>Max Air Flow:</b> 1.8 - 2.1 m³/min</li><li><b>Max Sealed Suction:</b> 11 kPa</li><li><b>Suction Power:</b> 75 W (High)</li><li><b>Weight:</b> 6.1–6.7 kg</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicoproductimages.edgeone.dev/Cordless%20Stick%20Vacuum%20Cleaner%20.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">ICL818 — Stick</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Capacity:</b> 250 mL</li><li><b>Max Air Flow:</b> 1.3 m³/min</li><li><b>Max Sealed Suction:</b> 6.5 kPa</li><li><b>Continuous Runtime:</b> Up to 40 min</li><li><b>Features:</b> Lightweight, LED Light, Low Noise</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicoproductimages.edgeone.dev/Cordless%20Upright%20vaccum%20cleaner.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">BS 145 — Upright</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Dust/Water Capacity:</b> 5 L / 4 L</li><li><b>Run Time:</b> 35–50 min</li><li><b>Max Sealed Suction:</b> 9 kPa</li><li><b>Brush Speed:</b> 250 RPM</li><li><b>Charging Time:</b> 2–5 hours</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicoproductimages.edgeone.dev/Cordless%20Heavy%20Duty%20Vacuum%20Cleaner.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">DC220 — Heavy Duty</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Dust/Water Capacity:</b> 7.5 L / 4.5 L</li><li><b>Run Time:</b> 40–50 min</li><li><b>Max Air Flow:</b> 2.0 m³/min</li><li><b>Max Sealed Suction:</b> 9.0 kPa</li><li><b>Features:</b> Strong Motor, Wet & Dry Cleaning</li></ul>
+                                </div>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            floor: {
+                id: 'floor',
+                title: "Floor Cleaning Machines",
+                desc: "Walk-behind, ride-on scrubbers, and single disc machines for efficient hard floor care.",
+                images: [
+                    "https://idenicoproductimages.edgeone.dev/Walk%20Behind%20Scrubber%20Driers.png",
+                    "https://idenicoproductimages.edgeone.dev/Ride%20on%20scrubbers%20and%20driers.png",
+                    "https://idenicoproductimages.edgeone.dev/Single%20Disc%20Machines%20SD1.5.png"
+                ],
+                products: [
+                    {
+                        name: "Walk Behind Scrubber Driers",
+                        image: "",
+                        description: "Professional walk-behind scrubber driers available in both cable (E) and cordless battery (B) operated versions.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Walk%20Behind%20Scrubber%20Driers.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm"><h6 class="font-bold text-blue-700 mb-2">WBS 50 E (Cable)</h6><ul class="text-slate-600 space-y-1"><li><b>Voltage:</b> 220 V (15m Cable)</li><li><b>Cleaning Efficiency:</b> 1750 m²/h</li><li><b>Brush/Vac Motor:</b> 550 W / 750 W</li><li><b>Squeegee Width:</b> 780 mm</li><li><b>Brush Diameter:</b> 510 mm</li><li><b>Tanks (Solution/Recovery):</b> 45 L / 50 L</li></ul></div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm"><h6 class="font-bold text-blue-700 mb-2">WBS 50 B (Cordless)</h6><ul class="text-slate-600 space-y-1"><li><b>Voltage:</b> 24 V (100 Ah × 2 Battery)</li><li><b>Cleaning Efficiency:</b> 1750 m²/h</li><li><b>Brush/Vac Motor:</b> 550 W / 750 W</li><li><b>Squeegee Width:</b> 780 mm</li><li><b>Brush Diameter:</b> 510 mm</li><li><b>Tanks (Solution/Recovery):</b> 45 L / 50 L</li></ul></div>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "Ride-On Scrubber Driers",
+                        image: "",
+                        description: "Heavy-duty ride-on scrubbing machines for massive floor areas, guaranteeing fast and comfortable operation.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Ride%20on%20scrubbers%20and%20driers.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm"><h6 class="font-bold text-blue-700 mb-2">RSD 75</h6><ul class="text-slate-600 space-y-1"><li><b>Working Voltage:</b> 24 V DC (140 Ah × 2)</li><li><b>Cleaning Efficiency:</b> 3000 m²/h</li><li><b>Clean/Squeegee Width:</b> 330 mm / 810 mm</li><li><b>Brush Speed:</b> 220 RPM</li><li><b>Tanks (Sol/Rec):</b> 65 L / 75 L</li><li><b>Speed:</b> 6 km/h</li></ul></div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm"><h6 class="font-bold text-blue-700 mb-2">RSD 120</h6><ul class="text-slate-600 space-y-1"><li><b>Working Voltage:</b> 24 V DC (140 Ah × 2)</li><li><b>Cleaning Efficiency:</b> 4800 m²/h</li><li><b>Scrub/Squeegee Width:</b> 800 mm / 1100 mm</li><li><b>Brush Motor:</b> 2 × 550 W</li><li><b>Tanks (Sol/Rec):</b> 115 L / 120 L</li><li><b>Weight:</b> 300 kg with batteries</li></ul></div>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "Single Disc Machines",
+                        image: "",
+                        description: "Sturdy and durable construction with a planetary gear system. Ideal for floor scrubbing and polishing with low maintenance.",
+                        specsHtml: `
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicoproductimages.edgeone.dev/Single%20Disc%20Machines%20SD1.5.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">SD 1.5</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Power:</b> 1100 W</li><li><b>Rotation:</b> 175 rpm/min</li><li><b>Brush Diameter:</b> 432 mm</li><li><b>Water Tank:</b> 12 L</li><li><b>Weight:</b> 40 kg</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicoproductimages.edgeone.dev/Single%20Disc%20Machines%20SD2.0.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">SD 2.0</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Power:</b> 1500 W</li><li><b>Rotation:</b> 175 rpm/min</li><li><b>Brush Diameter:</b> 432 mm</li><li><b>Water Tank:</b> 12 L</li><li><b>Weight:</b> 53 kg</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicoproductimages.edgeone.dev/Single%20Disc%20Machines%20SD2.5.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">SD 2.5</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Power:</b> 1800 W</li><li><b>Rotation:</b> 175 rpm/min</li><li><b>Brush Diameter:</b> 432 mm</li><li><b>Water Tank:</b> 12 L</li><li><b>Weight:</b> 64 kg</li></ul>
+                                </div>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            sweepers: {
+                id: 'sweepers',
+                title: "Sweepers",
+                desc: "Manual, ride-on, and industrial road sweepers for large indoor and outdoor area dust control.",
+                images: [
+                    "https://idenicoproductimages.edgeone.dev/Manual%20Sweeper.png",
+                    "https://idenicoproductimages.edgeone.dev/Ride-On%20Sweepers.png",
+                    "https://idenicoproductimages.edgeone.dev/Road%20Sweeper%20(IMS%201600).png"
+                ],
+                products: [
+                    {
+                        name: "Manual Sweeper",
+                        image: "",
+                        description: "Strong, lightweight construction that is easy to manoeuvre and empty. Ideal for quick sweeping of warehouses, parking lots, and walkways.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Manual%20Sweeper.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm"><h6 class="font-bold text-blue-700 mb-2">MS40 Specifications</h6><ul class="text-slate-600 space-y-1"><li><b>Productivity:</b> 4200 m²/hr</li><li><b>Trash Capacity:</b> 50 L</li><li><b>Drive:</b> Manual</li><li><b>Working Speed:</b> 4–5 km/hr</li><li><b>Main Brush:</b> 480 mm</li><li><b>Side Brushes:</b> 350 mm — 2 Nos.</li></ul></div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm"><h6 class="font-bold text-blue-700 mb-2">Features</h6><ul class="text-slate-600 space-y-1"><li>Side brushes for cleaning along walls</li><li>3-stage handle setting</li><li>2 filters for dust control</li><li>6-level main brush pressure adjustment</li></ul></div>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "Ride-On Sweepers (RS 100)",
+                        image: "",
+                        description: "Highly efficient battery-operated ride-on sweeping systems featuring super vacuum suction and high-capacity hoppers.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Ride-On%20Sweepers.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm">
+                                    <h6 class="font-bold text-blue-700 mb-2">Technical Specifications</h6>
+                                    <ul class="text-slate-600 space-y-1">
+                                        <li><b>Hopper Tank:</b> 100 L</li>
+                                        <li><b>Driving Motor:</b> 800 W</li>
+                                        <li><b>Filter Area:</b> 5.5 Sq.m</li>
+                                        <li><b>Operational Speed:</b> 6 Km/h</li>
+                                        <li><b>Cleaning Rate:</b> 7200 m²/h</li>
+                                        <li><b>Battery:</b> 24 V</li>
+                                        <li><b>Main Brush:</b> 500 mm</li>
+                                        <li><b>Side Brush (1):</b> 875 mm</li>
+                                        <li><b>Side Brush (2):</b> 1250 mm</li>
+                                        <li><b>Hill Climbing Ability:</b> 30%</li>
+                                        <li><b>Sound Level:</b> 75 dB</li>
+                                        <li><b>Net Weight:</b> 284 kg</li>
+                                        <li><b>Gross Weight:</b> 322 kg</li>
+                                        <li><b>Dimensions (L×W×H):</b> 150 × 125 × 133 cm</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col gap-4">
+                                    <div>
+                                        <h6 class="font-bold text-blue-700 mb-2">Key Features</h6>
+                                        <ul class="text-slate-600 space-y-1">
+                                            <li>Super Vacuum System</li>
+                                            <li>Easy Cleaning Filter</li>
+                                            <li>Emergency Power-Off Switch</li>
+                                            <li>Rear Lift Type Maintenance</li>
+                                            <li>User-Friendly Operation</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h6 class="font-bold text-blue-700 mb-2">Product Benefits</h6>
+                                        <ul class="text-slate-600 space-y-1">
+                                            <li>Save Time & Effort</li>
+                                            <li>Cost Effective</li>
+                                            <li>Perfect for Industries & Commercial Areas</li>
+                                            <li>Trusted Quality</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "Industrial Ride-On Sweeper IRRS 150",
+                        image: "",
+                        description: "The IRRS 150 is a robust electric machine designed for sustainability. With a 150-liter solution dedicated to minimizing carbon footprint, its innovative dual brush and dual water sprayer technology work harmoniously to optimize dust collection.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Industrial%20Ride%20on%20Sweepers.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm"><h6 class="font-bold text-blue-700 mb-2">Performance Specifications</h6><ul class="text-slate-600 space-y-1"><li><b>Maximum Work Productivity:</b> 8000 m²/hr</li><li><b>Forward Speed:</b> 0–12 km/h</li><li><b>Cleaning Width:</b> 1380 mm</li><li><b>Main Brush Width:</b> 680 mm</li><li><b>Battery Capacity:</b> 48V / 115A80Ah</li><li><b>Clear Water Tank:</b> 110 L</li><li><b>Dustbin:</b> 150 L</li><li><b>Voltage Rated Power:</b> 48V / 750W</li></ul></div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm"><h6 class="font-bold text-blue-700 mb-2">Technical Specifications</h6><ul class="text-slate-600 space-y-1"><li><b>Dimensions:</b> 1650 × 1380 × 1350 mm</li><li><b>Filtration:</b> 0.5 Micron</li><li><b>Operation Duration:</b> 3–4 hr</li><li><b>Net Weight / Gross Weight:</b> 480 / 520 kg</li></ul></div>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "Road Sweeper (IMS 1600)",
+                        image: "",
+                        description: "Heavy-duty electric drive street sweeper with powerful suction, adjustable brushes, and massive water and garbage capacity.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Road%20Sweeper%20(IMS%201600).png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm mt-4 bg-white border rounded-lg p-6 shadow-sm">
+                                <ul class="text-slate-600 space-y-1"><li><b>Speed (Max / Work):</b> 28 km/h / 6 km/h</li><li><b>Turning Radius:</b> 4 m</li><li><b>Front/Med Brush:</b> 750 mm / 500 mm</li></ul>
+                                <ul class="text-slate-600 space-y-1"><li><b>Water Tank:</b> 2000 L</li><li><b>Garbage Tank:</b> 1600 L</li><li><b>Motor:</b> 72 V / 7500 W AC Motor</li></ul>
+                                <ul class="text-slate-600 space-y-1"><li><b>Battery:</b> 72 V / 300 Ah (8 hr charge)</li><li><b>Hydraulic Unit:</b> 800 W Brushless</li><li><b>Features:</b> Zero-emission, low noise</li></ul>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            pressure: {
+                id: 'pressure',
+                title: "Pressure Washers",
+                desc: "High-pressure water cleaning solutions to remove stubborn dirt, grease, and grime.",
+                images: [
+                    "https://idenicoproductimages.edgeone.dev/High%20Pressure%20Washer%20IHW101.png",
+                    "https://idenicoproductimages.edgeone.dev/High%20Pressure%20Washer%20IHW1300.png"
+                ],
+                products: [
+                    {
+                        name: "High Pressure Washers",
+                        image: "", 
+                        description: "From compact models for patios and cars to heavy-duty industrial performers with built-in hose reels and total stop systems.",
+                        specsHtml: `
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm mt-4">
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicobrandlogoandimage.edgeone.dev/High%20Pressure%20Washer%20IHW101.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">IHW101</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Pressure:</b> 100 Bar (1450 PSI)</li><li><b>Power:</b> 1300 W (Universal)</li><li><b>Max Flow Rate:</b> 360 L/h</li><li><b>Hose Length:</b> 5 m</li><li><b>Weight:</b> 6.3 kg</li><li><b>Feature:</b> Compact & Portable</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicobrandlogoandimage.edgeone.dev/High%20Pressure%20Washer%20IHW1300.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">IHW1300</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Pressure:</b> 130 Bar (1885 PSI)</li><li><b>Power:</b> 1800 W</li><li><b>Max Flow Rate:</b> 450 L/h</li><li><b>Hose Length:</b> 10 m (Reel)</li><li><b>Weight:</b> 12.7 kg</li><li><b>Feature:</b> Self-priming, 80% water saving</li></ul>
+                                </div>
+                                <div class="bg-white border rounded-lg p-6 shadow-sm flex flex-col items-center">
+                                    <img src="https://idenicobrandlogoandimage.edgeone.dev/High%20Pressure%20Washer%20IHW151.png" class="h-72 sm:h-80 md:h-96 lg:h-[400px] w-full object-contain mb-8 drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                                    <h6 class="font-bold text-blue-700 mb-2 w-full text-left">IHW151</h6>
+                                    <ul class="text-slate-600 space-y-1 w-full text-left"><li><b>Pressure:</b> 150 Bar (2175 PSI)</li><li><b>Power:</b> 2500 W (Induction)</li><li><b>Max Flow Rate:</b> 500 L/h</li><li><b>Hose Length:</b> 10 m (Locking Reel)</li><li><b>Weight:</b> 26.3 kg</li><li><b>Feature:</b> Heavy-duty industrial, Double tank</li></ul>
+                                </div>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            lawn: {
+                id: 'lawn',
+                title: "Lawn Care Equipment",
+                desc: "Electric mowers and brush cutters for efficient, eco-friendly landscaping.",
+                images: [
+                    "https://idenicoproductimages.edgeone.dev/Electric%20Lawn%20Mower.png",
+                    "https://idenicoproductimages.edgeone.dev/Electric%20Brush%20Cutter.png"
+                ],
+                products: [
+                    {
+                        name: "Electric Lawn Mower",
+                        image: "",
+                        description: "Powerful electric motor, adjustable cutting height, lightweight operation, and easy manoeuvrability.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Electric%20Lawn%20Mower.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="mt-4 bg-white border rounded-lg p-6 shadow-sm text-sm">
+                                <ul class="text-slate-600 space-y-2">
+                                    <li><b>Suitable For:</b> Small to medium lawns.</li>
+                                    <li><b>Applications:</b> Homes, gardens, hotels, parks, landscaped areas, commercial properties and institutional grounds.</li>
+                                    <li><b>Highlights:</b> Efficient lawn maintenance with zero emissions.</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "Electric Brush Cutter",
+                        image: "",
+                        description: "Strong electric motor, high cutting efficiency, and ergonomic operation. Suitable for grass, weeds, and tough vegetation.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Electric%20Brush%20Cutter.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="mt-4 bg-white border rounded-lg p-6 shadow-sm text-sm">
+                                <ul class="text-slate-600 space-y-2">
+                                    <li><b>Suitable For:</b> Tough vegetation, heavy weeds, edging.</li>
+                                    <li><b>Applications:</b> Homes, gardens, hotels, parks, landscaped areas, commercial properties and institutional grounds.</li>
+                                    <li><b>Highlights:</b> Practical outdoor maintenance with robust electric power.</li>
+                                </ul>
+                            </div>
+                        `
+                    }
+                ]
+            },
+            water: {
+                id: 'water',
+                title: "Water Purification",
+                desc: "Industrial RO plants and water coolers ensuring safe, pure drinking water.",
+                images: [
+                    "https://idenicoproductimages.edgeone.dev/RO%20Plants%20(250%20LPH,%20500%20LPH,%201000%20LPH).png",
+                    "https://idenicoproductimages.edgeone.dev/RO%2050%20LPH%20Reverse%20Osmosis%20Water%20Purifier.png",
+                    "https://idenicoproductimages.edgeone.dev/Pure%20Chill%20Water%20Cooler%20Cum%20Water%20Purifier.png"
+                ],
+                products: [
+                    {
+                        name: "RO Plants (250 LPH, 500 LPH, 1000 LPH)",
+                        image: "",
+                        description: "High-capacity Reverse Osmosis purification systems designed for large-scale institutional and industrial requirements.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/RO%20Plants%20(250%20LPH,%20500%20LPH,%201000%20LPH).png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="mt-4 bg-white border rounded-lg p-6 shadow-sm text-sm">
+                                <ul class="text-slate-600 space-y-1">
+                                    <li><b>Capacities Available:</b> 250 LPH, 500 LPH, 1000 LPH</li>
+                                    <li><b>Features:</b> Larger membrane & higher capacity, Microbiologically potable water, Nano Silver Leaching purification</li>
+                                    <li><b>System:</b> Automatic flushing, Self-cleaning system, Large storage capacity</li>
+                                    <li><b>Disinfection:</b> Advanced UV technology for final disinfection</li>
+                                    <li><b>Filtration Stages:</b> PP Sediment → GAC Carbon → CTO Carbon → RO Membrane → Post Carbon</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "RO 50 LPH Reverse Osmosis Water Purifier",
+                        image: "",
+                        description: "Advanced RO filtration technology providing high purity & safe drinking water with efficient performance and low maintenance.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/RO%2050%20LPH%20Reverse%20Osmosis%20Water%20Purifier.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="mt-4 bg-white border rounded-lg p-6 shadow-sm text-sm">
+                                <ul class="text-slate-600 space-y-1">
+                                    <li><b>Construction:</b> Stainless-steel frame and long-lasting components.</li>
+                                    <li><b>Applications:</b> Ideal for commercial & industrial use requiring constant moderate flow rates.</li>
+                                </ul>
+                            </div>
+                        `
+                    },
+                    {
+                        name: "IDENICO Pure Chill Water Cooler Cum Water Purifier",
+                        image: "",
+                        description: "Integrated chilling and purification system featuring high-capacity storage and advanced RO + UV technology.",
+                        specsHtml: `
+                            <div class="flex flex-col items-center mb-10">
+                                <img src="https://idenicoproductimages.edgeone.dev/Pure%20Chill%20Water%20Cooler%20Cum%20Water%20Purifier.png" class="h-80 md:h-[450px] lg:h-[550px] w-full object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="mt-4 bg-white border rounded-lg p-6 shadow-sm text-sm">
+                                <ul class="text-slate-600 space-y-1">
+                                    <li><b>Construction:</b> Hygienic Stainless-steel tank.</li>
+                                    <li><b>Output:</b> Multiple faucets for normal, cold & purified water.</li>
+                                    <li><b>Applications:</b> Ideal for offices, schools, hospitals & industries.</li>
+                                </ul>
+                            </div>
+                        `
+                    }
+                ]
+            }
+        };
+
+        // ------------------ INITIALIZATION ------------------ //
+        document.getElementById('copyright-year').innerText = `© ${new Date().getFullYear()} IDENICO India Pvt. Limited. All Rights Reserved.`;
+
+        // Mobile Menu Toggle Logic
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            menuIcon.classList.toggle('fa-bars');
+            menuIcon.classList.toggle('fa-times');
+        });
+
+        // Generate Homepage Category Cards dynamically
+        const homeCategoriesContainer = document.getElementById('home-categories-container');
+        let homeHtml = '';
+        Object.keys(productDatabase).forEach(key => {
+            const cat = productDatabase[key];
+            
+            // Build the image tags for the carousel
+            let imgHtml = '';
+            cat.images.forEach((imgUrl, idx) => {
+                const opacityClass = idx === 0 ? 'opacity-100' : 'opacity-0';
+                imgHtml += `<img src="${imgUrl}" class="carousel-img absolute inset-0 w-full h-full object-contain bg-white p-2 ${opacityClass}" alt="${cat.title}">`;
+            });
+
+            homeHtml += `
+                <div class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 border border-slate-100 group flex flex-col cursor-pointer" onclick="openCategory('${key}')">
+                    <div class="image-carousel relative h-56 overflow-hidden bg-white border-b">
+                        ${imgHtml}
+                    </div>
+                    <div class="p-8 flex-grow flex flex-col">
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">${cat.title}</h3>
+                        <p class="text-slate-600 mb-6 text-sm leading-relaxed">${cat.desc}</p>
+                        <div class="mt-auto pt-2">
+                            <button class="inline-flex items-center justify-center gap-2 w-full bg-blue-600 text-white px-4 py-3 rounded-lg font-bold text-sm hover:bg-blue-700 transition-colors shadow-sm">
+                                View Products <i class="fas fa-arrow-right text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+        homeCategoriesContainer.innerHTML = homeHtml;
+
+        // Initialize Carousel (Swap opacity every 6 seconds)
+        const carousels = document.querySelectorAll('.image-carousel');
+        carousels.forEach(carousel => {
+            const images = carousel.querySelectorAll('.carousel-img');
+            if (images.length > 1) {
+                let currentIndex = 0;
+                setInterval(() => {
+                    images[currentIndex].classList.replace('opacity-100', 'opacity-0');
+                    currentIndex = (currentIndex + 1) % images.length;
+                    images[currentIndex].classList.replace('opacity-0', 'opacity-100');
+                }, 6000);
+            }
+        });
+
+
+        // ------------------ SPA ROUTING LOGIC ------------------ //
+        const homeView = document.getElementById('home-view');
+        const categoryView = document.getElementById('category-view');
+        
+        function goHome() {
+            categoryView.classList.add('hidden');
+            homeView.classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function openCategory(categoryId) {
+            const cat = productDatabase[categoryId];
+            if(!cat) return;
+
+            // Hide Home, Show Category View
+            homeView.classList.add('hidden');
+            categoryView.classList.remove('hidden');
+            
+            // Populate Header
+            document.getElementById('cv-title').innerText = cat.title;
+            document.getElementById('cv-desc').innerText = cat.desc;
+            document.getElementById('product-search').value = ''; // Reset search
+
+            // Populate Products
+            const grid = document.getElementById('products-grid');
+            let productsHtml = '';
+            
+            cat.products.forEach(prod => {
+                const waMessage = encodeURIComponent(`Hello! I am interested in knowing more about your ${prod.name}.`);
+                const waUrl = `https://wa.me/919990385139?text=${waMessage}`;
+
+                productsHtml += `
+                    <div class="product-item-card bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col lg:flex-row reveal active">
+                        <!-- Details Container (Takes full width now that side thumbnails are removed) -->
+                        <div class="w-full p-8 flex flex-col">
+                            <h3 class="product-name text-2xl font-bold text-slate-900 mb-3">${prod.name}</h3>
+                            <p class="text-slate-600 mb-6 leading-relaxed">${prod.description}</p>
+                            
+                            <div class="bg-slate-50 rounded-xl p-6 mb-8 flex-grow">
+                                ${prod.specsHtml}
+                            </div>
+                            
+                            <div class="mt-auto self-start w-full sm:w-auto">
+                                <a href="${waUrl}" target="_blank" class="inline-flex items-center justify-center gap-2 w-full sm:w-auto bg-green-500 text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-green-600 transition-transform hover:-translate-y-1 shadow-lg hover:shadow-xl">
+                                    <i class="fab fa-whatsapp text-2xl"></i> Send Enquiry
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            grid.innerHTML = productsHtml;
+            document.getElementById('no-results').classList.add('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        // ------------------ SEARCH LOGIC ------------------ //
+        document.getElementById('product-search').addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.product-item-card');
+            let hasVisible = false;
+
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                if(text.includes(term)) {
+                    card.style.display = 'flex';
+                    hasVisible = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            if(!hasVisible) {
+                document.getElementById('no-results').classList.remove('hidden');
+            } else {
+                document.getElementById('no-results').classList.add('hidden');
+            }
+        });
+
+        // ------------------ NAVIGATION LINKS INTERCEPT ------------------ //
+        document.querySelectorAll('.nav-link').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                
+                // If it's a category link in footer, it has no hash, it runs onclick. 
+                if (!targetId || targetId === 'javascript:void(0)') return; 
+                
+                // Close mobile menu if open
+                menu.classList.add('hidden');
+                menuIcon.classList.replace('fa-times', 'fa-bars');
+
+                if (targetId.startsWith('#')) {
+                    // If we are on a category page, go back to home page first
+                    if (!categoryView.classList.contains('hidden')) {
+                        goHome();
+                        // Small timeout to allow DOM to render the home view before scrolling
+                        setTimeout(() => {
+                            const el = document.querySelector(targetId);
+                            if(el) el.scrollIntoView({behavior: 'smooth'});
+                        }, 50);
+                    }
+                }
+            });
+        });
+
+        // ------------------ SCROLL ANIMATION (INTERSECTION OBSERVER) ------------------ //
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: stop observing once revealed
+                        // observer.unobserve(entry.target); 
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach((el) => {
+                observer.observe(el);
+            });
+        });
+
+        // ------------------ CUSTOMER LOGO SLIDER LOGIC ------------------ //
+        const customerSlider = document.getElementById('customer-slider');
+        if (customerSlider) {
+            setInterval(() => {
+                const firstChild = customerSlider.firstElementChild;
+                const style = window.getComputedStyle(firstChild);
+                const width = firstChild.offsetWidth + parseFloat(style.marginLeft) + parseFloat(style.marginRight);
+                
+                customerSlider.style.transition = 'transform 0.8s ease-in-out';
+                customerSlider.style.transform = `translateX(-${width}px)`;
+                
+                setTimeout(() => {
+                    customerSlider.style.transition = 'none';
+                    customerSlider.appendChild(firstChild);
+                    customerSlider.style.transform = 'translateX(0)';
+                }, 800); // Wait for transition to finish
+            }, 4000); // Slide every 4 seconds
+        }
+
+    </script>
+</body>
+</html>
